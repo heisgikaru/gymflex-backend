@@ -14,29 +14,28 @@ GymFlex is a secure, map-based marketplace application designed to bridge the ga
 
 ---
 
-## 2. Progress Report: Completed Milestones (What I Have Done)
-To optimize development under our strict 12-week constraints, the foundational system architecture and secure database layers have been successfully established:
+## 2. Project Implementation & Progress Evaluation
+This evaluation outlines the development milestones achieved in aligning our frontend interfaces, backend services, and core marketplace rules.
 
-* **[DONE] Systems Modeling & Design Blueprints:** 
-  * Fully conceptualized and generated the **Entity Relationship Diagram (ERD)** to structure our NoSQL database.
-  * Mapped out the **Use Case Diagram** to lock down client, host, and system boundaries.
-  * Designed a high-security **Sequence Diagram** mapping secure JSON Web Token (JWT) authorization flows and input sanitization before database interaction.
-* **[DONE] Source Control Strategy:** Established a standard GitFlow model. The repository is initialized with active, tracking `main` (production) and `develop` (integration) branches.
-* **[DONE] Backend Prototype Bootstrapped:** 
-  * Initialized Node.js runtime and configured `package.json`.
-  * Wrote and successfully tested the baseline `server.js` file, verified running live on local port `5000`.
+### A. UI/UX Development
+The client-facing design has transitioned from static wireframes into interactive, user-centric screen flows:
+* **Dynamic Training Dashboard:** Designed interactive training schedules, custom session trackers, and user workout guides to keep the interface highly engaging.
+* **Map-Based Marketplace Layout:** Implemented a clean, Leaflet.js-driven map UI displaying interactive visual pins for on-demand gym location selection.
+* **Distinct Role Interfaces:** Built split dashboard layouts customized for **Clients** (focusing on bookings, active passes, and physical tracking metrics) and **Hosts** (focusing on capacity caps, earnings, and active guest slots).
 
----
+### B. Connecting Frontend to Backend
+The pipeline connecting our client views to the cloud server is securely established:
+* **State and API Mapping:** Mapped the frontend React states to feed directly into our Node.js/Express API endpoints via Axios fetch requests.
+* **JWT Handshake Security:** Implemented frontend state monitors that track the active JSON Web Token (JWT) in local storage, automatically handling session invalidation or redirecting unauthorized users to the login screen.
+* **Spatial Query Bridging:** Designed the bridge between the Leaflet.js coordinate outputs and MongoDB's geospatial query engine (`$near` coordinates) to dynamically serve nearby gyms.
 
-## 3. UI/UX Implementation & Progress Evaluation (July 15, 2026)
-To ensure high system usability and intuitive navigation, the client-facing interfaces have transitioned from conceptual wireframes to interactive screen designs:
+### C. Core Business Logic Implementation
+Our core operational rules are coded directly into the system schemas and controllers to prevent abuse and overbooking:
+* **Capacity Cap Enforcement:** Prior to confirming any booking, the backend controller performs a validation check against the host gym's database field `capacityLimit` to prevent overcrowding.
+* **Role-Based Access Control (RBAC):** Restricts endpoints using custom middleware. Clients are blocked from calling host management APIs, and hosts are prevented from booking sessions on other listings.
+* **Secure Payment Processing Integration:** Structured database reservation schemas to hold transaction IDs generated during M-Pesa API checkout verification before activating the booking.
 
-### A. Key UI/UX Highlights
-* **Dynamic Training Dashboard:** Designed interactive schedule views, customized session counters, and workout guides to keep the user experience seamless and engaging.
-* **Map-Based Marketplace Layout:** Mocked up the Leaflet.js-driven map layout containing real-time visual host markers for on-demand gym selections.
-* **Role-Based Interfaces:** Formulated clean, visually distinct dashboards for both **Clients** (focusing on bookings, pass status, and tracking metrics) and **Hosts** (focusing on capacity caps, earnings, and active session slots).
-
-### B. Progress Evaluation Matrix
+### D. Progress Evaluation Matrix
 Using our 12-week roadmap, the project's milestones are tracking as follows:
 
 | Phase / Feature | Target Completion | Current Status | Cybersecurity & UX Verification |
@@ -49,7 +48,7 @@ Using our 12-week roadmap, the project's milestones are tracking as follows:
 
 ---
 
-## 4. Technical Design Blueprints
+## 3. Technical Design Blueprints
 
 ### A. Database Schema (Entity Relationship Diagram)
 An optimized NoSQL structure utilizing document referencing (`ObjectId`) to maintain clean, scalable relationships between users, active gym listings, and reservations.
@@ -69,34 +68,6 @@ Maps out user interactions, functional requirements, and authentication boundari
 Highlights the step-by-step transaction logic, specifically showcasing JWT Token verification and real-time concurrency/capacity limit validation at the backend server layer.
 
 ![GymFlex Sequence Diagram](images/GymFlex_Sequence.png)
-
----
-
-## 5. Source Code Baseline (`server.js`)
-The server actively runs and serves as our entry point:
-
-```javascript
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
-
-const app = express();
-
-// Security Middleware
-app.use(cors());
-app.use(express.json()); // Sanitizes and parses incoming request bodies
-
-// Baseline test route
-app.get('/', (req, res) => {
-    res.json({ message: "GymFlex Secure Backend is operational!" });
-});
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-    console.log(`Server running securely on port ${PORT}`);
-});
 
 ---
 
