@@ -34,24 +34,20 @@ To optimize development under our strict 12-week constraints, the foundational s
 ### A. Database Schema (Entity Relationship Diagram)
 An optimized NoSQL structure utilizing document referencing (`ObjectId`) to maintain clean, scalable relationships between users, active gym listings, and reservations.
 
-> *Copy-paste your exported ERD image into your repository (e.g. inside a folder named `images/`) and link it here:*
-> `![GymFlex ERD](images/GymFlex_ERD.png)`
+![GymFlex ERD](images/GymFlex_ERD.png)
 
 ---
 
 ### B. Use Case Diagram
 Maps out user interactions, functional requirements, and authentication boundaries for the client and gym host roles.
 
-> *Link your exported Use Case image here:*
-> `![GymFlex Use Case](images/GymFlex_UseCase.png)`
-
+![GymFlex Use Case](images/GymFlex_UseCase.png)
 ---
 
 ### C. Sequence Diagram (Secure Booking Process)
 Highlights the step-by-step transaction logic, specifically showcasing JWT Token verification and real-time concurrency/capacity limit validation at the backend server layer.
 
-> *Link your exported Sequence Diagram image here:*
-> `![GymFlex Sequence Diagram](images/GymFlex_Sequence.png)`
+![GymFlex Sequence Diagram](images/GymFlex_Sequence.png)
 
 ---
 
