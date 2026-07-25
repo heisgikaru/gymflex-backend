@@ -1,17 +1,22 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
+// 1. Import the database connection function
+const connectDB = require('./config/db');
+
 const app = express();
 
-// Security Middleware
-app.use(cors());
-app.use(express.json()); // Sanitizes and parses incoming request bodies
+// 2. Connect to MongoDB Atlas
+connectDB();
 
-// Baseline test route
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Base Route
 app.get('/', (req, res) => {
-    res.json({ message: "GymFlex Secure Backend is operational!" });
+    res.json({ message: "GymFlex Secure Backend API is active!" });
 });
 
 const PORT = process.env.PORT || 5000;
