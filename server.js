@@ -2,17 +2,19 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-// 1. Import the database connection function
 const connectDB = require('./config/db');
 
 const app = express();
 
-// 2. Connect to MongoDB Atlas
+// Connect to Database
 connectDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Mount Routes
+app.use('/api/auth', require('./routes/authRoutes'));
 
 // Base Route
 app.get('/', (req, res) => {
